@@ -25,7 +25,6 @@ model.prototype.loadModelList = function(){
     return props;
 }
 
-
 model.prototype.loadModelInfo = function(db,callBack){
     var model = this;
     try{
