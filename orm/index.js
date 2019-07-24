@@ -500,7 +500,6 @@ filter.prototype.toDbFilter = function(modelProps){
     }
 }
 
-
 function order(prop, order){
     this.prop = prop;
     this.order = order;
