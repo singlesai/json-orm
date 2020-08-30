@@ -1,0 +1,10 @@
+{
+    "log": {
+        "db": {
+            "exec" : true,
+            "query": true
+        },
+        "debug": true,
+        "warning": true
+    }
+}

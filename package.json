@@ -12,6 +12,7 @@
     "author": "singlesai",
     "dependencies": {
         "node": "^14.8.0",
+        "sqlite3": "^5.0.0",
         "wide-align": "^1.1.3"
     }
 }
