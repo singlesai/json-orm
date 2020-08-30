@@ -1,0 +1,17 @@
+{
+    "name": "json-orm-configurable",
+    "version": "0.0.1",
+    "description": "json-orm configurable like odoo orm use json",
+    "main": "inde.js",
+    "keywords": [
+        "json",
+        "nodejs",
+        "orm",
+        "configurable"
+    ],
+    "author": "singlesai",
+    "dependencies": {
+        "node": "^14.8.0",
+        "wide-align": "^1.1.3"
+    }
+}

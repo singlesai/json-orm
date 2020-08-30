@@ -1,0 +1,199 @@
+{
+    "solution": {
+        "name": "base",
+        "application": {
+            "base": {
+                "auth": "single",
+                "model": {
+                    "database": {
+                        "table": "t_database",
+                        "property": {
+                            "id":{
+                                "field": "FID",
+                                "type": "number"
+                            },
+                            "name": {
+                                "field": "FName",
+                                "type": "string"
+                            },
+                            "caption": {
+                                "field": "FCaption",
+                                "type": "string"
+                            },
+                            "description": {
+                                "field": "FDescription",
+                                "type": "string",
+                                "length": 1000
+                            },
+                            "type": {
+                                "field": "FType",
+                                "type": "string"
+                            },
+                            "strConn": {
+                                "field": "FStrConn",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "solution": {
+                        "table": "t_solution",
+                        "property": {
+                            "id": {
+                                "field": "FID",
+                                "type": "number"
+                            },
+                            "name": {
+                                "field": "FName",
+                                "type": "string"
+                            },
+                            "caption": {
+                                "field": "FCaption",
+                                "type": "string"
+                            },
+                            "description": {
+                                "field": "FDescription",
+                                "type": "string",
+                                "length": 1000
+                            },
+                            "defaultDatabase": {
+                                "field": "FDatabaseID",
+                                "type": "m2o",
+                                "relationModel": "database"
+                            },
+                            "applications": {
+                                "type": "o2m",
+                                "relationModel": "appliation",
+                                "relationProperty": "solution"
+                            }
+                        }
+                    },
+                    "application": {
+                        "table": "t_application",
+                        "property": {
+                            "id": {
+                                "field": "FID",
+                                "type": "number"
+                            },
+                            "name": {
+                                "field": "FName",
+                                "type": "string"
+                            },
+                            "caption": {
+                                "field": "FCaption",
+                                "type": "string"
+                            },
+                            "description":{
+                                "field":"FDescription",
+                                "type": "string",
+                                "length": 1000
+                            },
+                            "auth": {
+                                "field": "FAuth",
+                                "type": "string"
+                            },
+                            "depends": {
+                                "type": "m2m",
+                                "relationModel": "application"
+                            },
+                            "models": {
+                                "type": "o2m",
+                                "relationModel": "model"
+                            }
+                        }
+                    },
+                    "model": {
+                        "table": "t_model",
+                        "property": {
+                            "id": {
+                                "field": "FID",
+                                "type": "number"
+                            },
+                            "name": {
+                                "field": "FName",
+                                "type": "string"
+                            },
+                            "caption": {
+                                "field": "FCaption",
+                                "type": "string"
+                            },
+                            "description": {
+                                "field": "FDescription",
+                                "type": "string",
+                                "length": 1000
+                            },
+                            "application": {
+                                "field": "FApplicationID",
+                                "type": "m2o",
+                                "relationModel": "appliation"
+                            },
+                            "table": {
+                                "field": "FTable",
+                                "type": "string"
+                            },
+                            "propertys": {
+                                "type": "o2m",
+                                "relationModel": "property",
+                                "relationProperty": "model"
+                            }
+                        }
+                    },
+                    "property": {
+                        "table": "t_property",
+                        "property": {
+                            "id": {
+                                "field": "FID",
+                                "type": "number"
+                            },
+                            "name": {
+                                "field": "FName",
+                                "type": "string"
+                            },
+                            "caption": {
+                                "field": "FCaption",
+                                "type": "string"
+                            },
+                            "description": {
+                                "field": "FDescription",
+                                "type": "string",
+                                "length": 1000
+                            },
+                            "model": {
+                                "field": "FModelID",
+                                "type": "m2o",
+                                "relationModel": "model"
+                            },
+                            "field": {
+                                "field": "FField",
+                                "type": "string"
+                            },
+                            "type": {
+                                "field": "FType",
+                                "type": "string"
+                            },
+                            "relationModel": {
+                                "field": "FRelationModel",
+                                "type": "string"
+                            },
+                            "relationProperty": {
+                                "field": "FRelationProperty",
+                                "type": "string"
+                            },
+                            "translation": {
+                                "field": "FTranlation",
+                                "type": "bool"
+                            },
+                            "require": {
+                                "field": "FRequire",
+                                "type": "bool"
+                            },
+                            "defaultValue": {
+                                "field": "FDefaultValue",
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

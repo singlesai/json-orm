@@ -1,1 +1,90 @@
-{"t_user":{"fid":{"name":"fid","type":"varchar"},"fnumber":{"name":"fnumber","type":"varchar"},"fname":{"name":"fname","type":"varchar"},"fpsw":{"name":"fpsw","type":"varchar"}},"t_customer":{"fid":{"name":"fid","type":"varchar"},"fname":{"name":"fname","type":"varchar"},"faddress":{"name":"faddress","type":"varchar"}},"t_order":{"fid":{"name":"fid","type":"varchar"},"ftime":{"name":"ftime","type":"timestamp"},"fcustid":{"name":"fcustid","type":"varchar"},"fnumber":{"name":"fnumber","type":"varchar"},"fdescription":{"name":"fdescription","type":"varchar"},"fuserid":{"name":"fuserid","type":"varchar"}},"t_orderentry":{"fid":{"name":"fid","type":"varchar"},"fparentid":{"name":"fparentid","type":"varchar"},"fmaterialid":{"name":"fmaterialid","type":"varchar"},"fweight":{"name":"fweight","type":"numeric"},"fprice":{"name":"fprice","type":"numeric"},"ffee":{"name":"ffee","type":"numeric"},"fqty":{"name":"fqty","type":"numeric"}}}
+{
+    "t_user": {
+        "fid": {
+            "name": "fid",
+            "type": "varchar"
+        },
+        "fnumber": {
+            "name": "fnumber",
+            "type": "varchar"
+        },
+        "fname": {
+            "name": "fname",
+            "type": "varchar"
+        },
+        "fpsw": {
+            "name": "fpsw",
+            "type": "varchar"
+        }
+    },
+    "t_customer": {
+        "fid": {
+            "name": "fid",
+            "type": "varchar"
+        },
+        "fname": {
+            "name": "fname",
+            "type": "varchar"
+        },
+        "faddress": {
+            "name": "faddress",
+            "type": "varchar"
+        }
+    },
+    "t_order": {
+        "fid": {
+            "name": "fid",
+            "type": "varchar"
+        },
+        "ftime": {
+            "name": "ftime",
+            "type": "timestamp"
+        },
+        "fcustid": {
+            "name": "fcustid",
+            "type": "varchar"
+        },
+        "fnumber": {
+            "name": "fnumber",
+            "type": "varchar"
+        },
+        "fdescription": {
+            "name": "fdescription",
+            "type": "varchar"
+        },
+        "fuserid": {
+            "name": "fuserid",
+            "type": "varchar"
+        }
+    },
+    "t_orderentry": {
+        "fid": {
+            "name": "fid",
+            "type": "varchar"
+        },
+        "fparentid": {
+            "name": "fparentid",
+            "type": "varchar"
+        },
+        "fmaterialid": {
+            "name": "fmaterialid",
+            "type": "varchar"
+        },
+        "fweight": {
+            "name": "fweight",
+            "type": "numeric"
+        },
+        "fprice": {
+            "name": "fprice",
+            "type": "numeric"
+        },
+        "ffee": {
+            "name": "ffee",
+            "type": "numeric"
+        },
+        "fqty": {
+            "name": "fqty",
+            "type": "numeric"
+        }
+    }
+}
