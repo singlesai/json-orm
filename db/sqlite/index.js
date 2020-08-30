@@ -1,5 +1,6 @@
 const sqlite = require('sqlite3')
 const cfg = require('../../config.json')
+const { table } = require('console')
 
 class Sqlite{
     constructor(path) {
@@ -81,7 +82,7 @@ class Sqlite{
         })
     }
 
-    async table(tableName) {
+    async tableInfo(tableName) {
         if(!global.tables){
             global.tables = {}
         }
@@ -100,6 +101,52 @@ class Sqlite{
             }
         }
         return global.tables[tableName]
+    }
+
+    async addField(tableName, fields) {
+        if(!fields) return
+        var rst = await this.getData("SELECT * FROM sqlite_master where type='table' and name='"+tableName+"' order by name")
+        var strSql, strArr=[], strTmp
+        for(var idx in fields){
+            var field = fields[idx]
+            strTmp = field.name + ' '
+            switch(field.type) {
+                case "string":
+                    if(!field.length){
+                        field.length = 50
+                    }
+                    strTmp+='varchar('+field.length+')'
+                    break
+                case "int":
+                    strTmp="int"
+                    break
+                default:
+                    throw 'Not Support Type:'+field.type
+                    break
+            }
+            strArr.push(strTmp)
+        }
+        if(rst.length<=0){
+            strSql="create table "+tableName+(strArr.join(','))
+        }else{
+            strSql="alter table "+tableName+" add column "+strArr.join(',')
+        }
+        await this.excSql(strSql)
+        global.tables[tableName]=undefined
+    }
+
+    async dropField(tableName, fields) {
+        var tableInfo = await this.tableInfo(tableName)
+        var tmpArr=[]
+        for(var idx in fields){
+            var field=fields[idx]
+            if(tableInfo.fields[field]!==undefined){
+                tmpArr.push(field)
+            }
+        }
+        var strSql = "alter table "+tableName+ 'drop column '+tmpArr.join(',')
+        await this.excSql(strSql)
+        global.tables[tableName]=undefined
     }
 
     filterStr(tableInfo, filter){
@@ -175,7 +222,7 @@ class Sqlite{
     }
 
     async query(table, fields, filter, order, limit, offset) {
-        var tableInfo = await this.table(table)
+        var tableInfo = await this.tableInfo(table)
         var nFields = []
         var field
         if(fields){
@@ -219,7 +266,7 @@ class Sqlite{
     }
 
     async create(table, val) {
-        var tableInfo = await this.table(table)
+        var tableInfo = await this.tableInfo(table)
         var strSql, arrField=[], arrValue =[]
         for(var field in val){
             if(!tableInfo.fields[field]){
@@ -240,7 +287,7 @@ class Sqlite{
     }
 
     async write(table, filter, val) {
-        var tableInfo = await this.table(table)
+        var tableInfo = await this.tableInfo(table)
         var strWhere = this.filterStr(tableInfo, filter)
         var arrSet = [],set = undefined
         for(var field in val){
@@ -265,7 +312,7 @@ class Sqlite{
     }
 
     async delete(table, filter) {
-        var tableInfo = await this.table(table)
+        var tableInfo = await this.tableInfo(table)
         var strWhere = this.filterStr(tableInfo, filter)
         var strSql = "delete from "+table+""
         if(strWhere) {
