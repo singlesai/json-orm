@@ -9,8 +9,8 @@ const Sqlite = require('./db/sqlite')
 const Filter = require('./db/Filter')
 var sqlite = new Sqlite('btest.db')
 //sqlite.excSql("create table t_user(fid varchar(255))")
-
 async function test(){
+    await sqlite.addField('t_user', [{name: "fid", type: "string"}])
     //await sqlite.begTran()
     await sqlite.excSql("insert into t_user(fid) select count(fid)+1 from t_user")
     //await sqlite.exitTran()

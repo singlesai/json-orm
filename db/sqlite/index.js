@@ -107,32 +107,61 @@ class Sqlite{
         if(!fields) return
         var rst = await this.getData("SELECT * FROM sqlite_master where type='table' and name='"+tableName+"' order by name")
         var strSql, strArr=[], strTmp
-        for(var idx in fields){
-            var field = fields[idx]
-            strTmp = field.name + ' '
-            switch(field.type) {
-                case "string":
-                    if(!field.length){
-                        field.length = 50
-                    }
-                    strTmp+='varchar('+field.length+')'
-                    break
-                case "int":
-                    strTmp="int"
-                    break
-                default:
-                    throw 'Not Support Type:'+field.type
-                    break
-            }
-            strArr.push(strTmp)
-        }
         if(rst.length<=0){
-            strSql="create table "+tableName+(strArr.join(','))
+            for(var idx in fields){
+                var field = fields[idx]
+                strTmp = field.name + ' '
+                switch(field.type) {
+                    case "string":
+                        if(!field.length){
+                            field.length = 50
+                        }
+                        strTmp+='varchar('+field.length+')'
+                        break
+                    case "int":
+                        strTmp="int"
+                        break
+                    default:
+                        throw 'Not Support Type:'+field.type
+                        break
+                }
+                strArr.push(strTmp)
+            }
+            strSql="create table "+tableName+"("+strArr.join(',')+")"
         }else{
-            strSql="alter table "+tableName+" add column "+strArr.join(',')
+            var ti = await this.tableInfo(tableName)
+            for(var idx in fields){
+                var field = fields[idx]
+                strTmp = field.name + ' '
+                switch(field.type) {
+                    case "string":
+                        if(!field.length){
+                            field.length = 50
+                        }
+                        strTmp+='varchar('+field.length+')'
+                        break
+                    case "int":
+                        strTmp="int"
+                        break
+                    default:
+                        throw 'Not Support Type:'+field.type
+                        break
+                }
+                if(ti.fields[field.name] === undefined) {
+                    strArr.push(strTmp)
+                }
+            }
+            if(strArr.length>0){
+                strSql="alter table "+tableName+" add column "+strArr.join(',')
+            }
         }
-        await this.excSql(strSql)
-        global.tables[tableName]=undefined
+        if(strSql!==undefined){
+            await this.excSql(strSql)
+            if(global.tables === undefined){
+                global.tables = {}
+            }
+            global.tables[tableName]=undefined
+        }
     }
 
     async dropField(tableName, fields) {
@@ -146,6 +175,9 @@ class Sqlite{
         }
         var strSql = "alter table "+tableName+ 'drop column '+tmpArr.join(',')
         await this.excSql(strSql)
+        if(global.tables === undefined){
+            global.tables = {}
+        }
         global.tables[tableName]=undefined
     }
 
