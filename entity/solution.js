@@ -19,7 +19,7 @@ class Solution {
         }
     }
     
-    model(name) {
+    async model(name) {
         if(this._data === undefined) {
             return new Model(this, name)
         }else{
@@ -38,15 +38,15 @@ class Solution {
         }
     }
 
-    installApplication() {
+    async installApplication() {
 
     }
 
-    unInstallApplication() {
+    async unInstallApplication() {
 
     }
 
-    applications() {
+    async applications() {
 
     }
 }

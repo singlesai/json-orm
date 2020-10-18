@@ -11,27 +11,27 @@ class Model{
         }
     }
 
-    desc() {
+    async desc() {
         return this._data
     }
 
-    query(fields, limit, offset, filter, order) {
+    async query(fields, limit, offset, filter, order) {
         return 'test'
     }
 
-    get(fields) {
+    async get(fields) {
 
     }
 
-    create(val) {
+    async create(val) {
 
     }
 
-    wirte(filter, val) {
+    async wirte(filter, val) {
 
     }
 
-    delete(filter) {
+    async delete(filter) {
 
     }
 }

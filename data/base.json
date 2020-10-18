@@ -1,6 +1,12 @@
 {
     "solution": {
         "name": "base",
+        "database": {
+            "default": {
+                "type": "sqlite",
+                "path": "btest.db"
+            }
+        },
         "application": {
             "base": {
                 "auth": "single",
