@@ -18,7 +18,7 @@ async function test(){
     //await sqlite.endTran()
     var filter = new Filter({">": ["{fid}","1"]})
     var rst1 = await sqlite.query('t_user', undefined, filter)
-    var table = await sqlite.table('t_user')
+    var table = await sqlite.tableInfo('t_user')
 
     var rec = await sqlite.query('t_user')
     console.log('rec init', rec)

@@ -1,12 +1,10 @@
 {
     "log": {
         "db": {
-            "exec": {
-
-            },
-            "query": {
-                
-            }
-        }
+            "exec" : true,
+            "query": true
+        },
+        "debug": true,
+        "warning": true
     }
 }

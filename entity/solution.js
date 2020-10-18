@@ -2,13 +2,20 @@ Object.defineProperty(exports, "__exModule", {value: true});
 
 const Model = require('./model.js');
 const data = require('../data/base.json');
+const { isObject } = require('util');
 
 class Solution {
-    constructor(name){
+    constructor(cfgSrc, name){
         if(name === undefined){
             this._data = data.solution
-        } else {
-            this._name = name
+        } 
+        if(isObject(cfgSrc)) {
+            var solutions = cfgSrc.model('solution').query({'=': ['{name}', name]})
+            if(solutions) {
+                this._data = solutions[0]
+            }else{
+                throw 'Solution '+name+' Not Exists'
+            }
         }
     }
     
