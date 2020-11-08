@@ -1,15 +1,20 @@
 const Solution = require('./index')
 
-var sol =new Solution()
-var model = sol.model('model')
-var rst = model.query()
-console.log(rst)
+// var sol =new Solution()
+// var model = sol.model('model')
+// var rst = model.query()
+// console.log(rst)
 
 const Sqlite = require('./db/sqlite')
 const Filter = require('./db/Filter')
 var sqlite = new Sqlite('btest.db')
 //sqlite.excSql("create table t_user(fid varchar(255))")
 async function test(){
+    var sol = new Solution()
+    var model = await sol.model('model')
+    var rst = await model.query()
+    console.log('rst', rst)
+
     await sqlite.addField('t_user', [{name: "fid", type: "string"}])
     //await sqlite.begTran()
     await sqlite.excSql("insert into t_user(fid) select count(fid)+1 from t_user")
