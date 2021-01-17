@@ -15,7 +15,7 @@ async function test(){
     var rst = await model.query()
     console.log('rst', rst)
 
-    await sqlite.addField('t_user', [{name: "fid", type: "string"}])
+    await sqlite.addField('t_user', [{name: "fid", type: "string"},{name: "fname",type:"string"}])
     //await sqlite.begTran()
     await sqlite.excSql("insert into t_user(fid) select count(fid)+1 from t_user")
     //await sqlite.exitTran()
@@ -25,7 +25,7 @@ async function test(){
     var rst1 = await sqlite.query('t_user', undefined, filter)
     var table = await sqlite.tableInfo('t_user')
 
-    var rec = await sqlite.query('t_user')
+    var rec = await sqlite.query('t_user',['fid','fname'])
     console.log('rec init', rec)
 
     var create = await sqlite.create('t_user', {fid: 'abc'})

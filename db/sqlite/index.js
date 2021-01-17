@@ -56,6 +56,7 @@ class Sqlite{
                     if(err === null) {
                         resolve(rst)
                     } else {
+                        console.log('excSql Err:', strSql)
                         reject(err)
                     }
                 })
@@ -75,6 +76,7 @@ class Sqlite{
                     if(err === null) {
                         resolve(rst)
                     } else {
+                        console.log('getDate Err', strSql)
                         reject(err)
                     }
                 })
@@ -259,8 +261,8 @@ class Sqlite{
         var field
         if(fields){
             for(field in fields){
-                if(tableInfo.fields[field]) {
-                    nFields.push(field)
+                if(tableInfo.fields[fields[field]]) {
+                    nFields.push(fields[field])
                 }
             }
         }else{
