@@ -41,6 +41,8 @@ async function test(){
     console.log('rec deleted', rec)
 }
 
-test().catch(err=>{
+test().then(()=>{
+    console.log('success')
+}).catch(err=>{
     console.log(err)
 })
