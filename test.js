@@ -3,7 +3,7 @@ const Solution = require('./index')
 // var sol =new Solution()
 // var model = sol.model('model')
 // var rst = model.query()
-// console.log(rst)
+// console.log(rst) test
 
 const Sqlite = require('./db/sqlite')
 const Filter = require('./db/Filter')
