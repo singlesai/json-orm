@@ -1,12 +1,12 @@
-const Solution = require('./index')
+const Solution = require('./src/index')
 
 // var sol =new Solution()
 // var model = sol.model('model')
 // var rst = model.query()
 // console.log(rst) test
 
-const Sqlite = require('./db/sqlite')
-const Filter = require('./db/Filter')
+const Sqlite = require('./src/db/sqlite')
+const Filter = require('./src/db/Filter')
 var sqlite = new Sqlite('btest.db')
 //sqlite.excSql("create table t_user(fid varchar(255))")
 async function test(){

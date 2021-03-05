@@ -80,7 +80,7 @@ class Model{
                 if(prop in this._property){
                     filter = '{'+this._property[prop].field+'}'
                 }
-            }
+            }       
         }
         return filter
     }
