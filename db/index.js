@@ -1,107 +1,77 @@
-var events = require('events'),
-    util = require('util');
+const Model = require("../entity/model")
+const Sqlite = require("./sqlite")
 
-function filter(op,val){
-    if(val===undefined){
-        if(op.length<=2){
-            op="[]"
-        }
-        var arr=JSON.parse(op);
-        var track = [];
-        for(idx in arr){
-            var pc = 0;
-            if(track.length>0){
-                track[track.length-1]-=1;
-                pc=track[track.length-1];
-                if(pc===0) track.pop();
-            }
-            var rec = arr[idx];
-            if(rec instanceof Array){//字段
-                return new filter("prop",rec);
-            }else{
-                switch(typeof rec){
-                    case "string":
-                    switch(rec){
-                        case "&":
-                        break;
-                        case "|":
-                        break;
-                        case "!":
-                        track.push(1);
-                        break;
-                        case "=":
-                        case ">=":
-                        case "<=":
-                        case "like":
-                        case "<>":
-                            return new filter(rec,[]);
-                        track.push(2);
-                        break;
-                        default:
-                            return new filter("str",rec);
-                        break;
-                    }
-                    break;
-                    case "number":
-                        return new filter("num",rec);
-                    break;
-                    default:
-                    break;
-                }
-            }
-        }
-    }else{
-        this.op = op;
-        this.val = val;
-    }
-}
-
-filter.prototype.toWhereSql = function(){
-    try{
-        switch(this.op){
-            case 'field':
-            case 'num': 
-                return this.val.toString();
-                break;
-            case 'str':
-                return "'"+this.val.toString()+"'";
-                break;
+class Database{
+    constructor(type, cfg){
+        this._type = type
+        this._cfg = cfg
+        switch(type){
+            case "sqlite":
+                this._db = new Sqlite(cfg)
+                break
+            case "sqlserver":
+            case "mssql":
+                break
+            case "pgsql":
+            case "postgresql":
+            case "pg":
+                break
+            case "oracle":
+                break
+            case "mysql":
+                break
             default:
-                if(Array.isArray(this.val)){
-                    var lst = new Array;
-                    for(idx in this.val){
-                        cf = this.val[idx];
-                        lst.push(cf.toWhereSql())
-                    }
-                    if(lst.length>1){
-                        return '('+lst.join(' '+this.op.toString()+' ')+')';
-                    }else{
-                        return '('+lst[0]+')';
-                    }
-                }else{
-                    return '('+this.op.toString()+' '+this.val.toWhereSql()+')';
-                }
-                break;
-            }
-    }catch(e){
-        console.log('e',e);
-        console.log('op',this.op);
-        console.log('val',this.val);
-        throw new Error('filter 解析错误'+e.toString());
+                throw('Not Support Database')
+                break
+        }
+    }
+
+    async beginTran() {
+        return await this._db.begTran()
+    }
+
+    async endTran() {
+        return await this._db.endTran()
+    }
+
+    async exitTran() {
+        return await this._db.exitTran()
+    }
+
+    async excSql(strSql){
+        return await this._db.excSql(strSql)
+    }
+
+    async getData(strSql){
+        return await this._db.getData(strSql)
+    }
+
+    async tableInfo(table){
+        return await this._db.tableInfo(table)
+    }
+
+    async addField(table, fields){
+        return await this._db.addField(table,fields)
+    }
+
+    async dropField(table, fields) {
+        return await this._db.dropField(table, fields)
+    }
+
+    async query(table, fields, filter, order, limit, offset) {
+        return await this._db.query(table,fields, filter, order, limit, offset)
+    }
+
+    async create(table, val) {
+        return await this._db.create(table, val)
+    }
+
+    async write(table, filter, val) {
+        return await this._db.write(table, filter, val)
+    }
+
+    async delete(table, filter) {
+        return await this._db.delete(table, filter)
     }
 }
-
-util.inherits(filter, events.EventEmitter);
-exports.filter = filter;
-
-function order(field,order){
-    this.field = field;
-    this.order = order;
-}
-
-util.inherits(order, events.EventEmitter);
-exports.order = order;
-
-order.prototype.toSql = function(){
-    return this.field+" "+this.order
-}
+module.exports = Database

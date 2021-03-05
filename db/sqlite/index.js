@@ -91,7 +91,7 @@ class Sqlite{
         if(!global.tables[tableName]){
             var rst = await this.getData("SELECT * FROM sqlite_master where type='table' and name='"+tableName+"' order by name")
             if(rst.length<=0){
-                throw "Table '"+tableName+"' Not Exists"
+                return
             }
             global.tables[tableName] = rst[0]
         }
@@ -123,6 +123,9 @@ class Sqlite{
                     case "int":
                         strTmp="int"
                         break
+                    case 'auto':
+                        strTmp+=' integer primary key autoincrement'
+                        break
                     default:
                         throw 'Not Support Type:'+field.type
                         break
@@ -144,6 +147,9 @@ class Sqlite{
                         break
                     case "int":
                         strTmp="int"
+                        break
+                    case 'auto':
+                        strTmp+=' integer primary key autoincrement'
                         break
                     default:
                         throw 'Not Support Type:'+field.type
@@ -185,6 +191,7 @@ class Sqlite{
 
     filterStr(tableInfo, filter){
         if(!filter) return ""
+        if(!filter._op) return ''
         var idx=undefined, arrTmp=[], childFilter = undefined, strWhere = undefined
         switch(filter._op)
         {
