@@ -7,7 +7,7 @@ const Solution = require('./src/entity/solution')
 
 const Sqlite = require('./src/db/sqlite')
 const Filter = require('./src/db/Filter')
-var sqlite = new Sqlite('/db/btest.db')
+var sqlite = new Sqlite('./db/btest.db')
 //sqlite.excSql("create table t_user(fid varchar(255))")
 async function test(){
     var sol = new Solution()
