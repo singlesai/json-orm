@@ -1,20 +1,29 @@
-const Solution = require('./index')
+const Solution = require('./src/entity/solution')
 
 // var sol =new Solution()
 // var model = sol.model('model')
 // var rst = model.query()
-// console.log(rst)
+// console.log(rst) test
 
-const Sqlite = require('./db/sqlite')
-const Filter = require('./db/Filter')
-var sqlite = new Sqlite('btest.db')
+const Sqlite = require('./src/db/sqlite')
+const Filter = require('./src/db/Filter')
+var sqlite = new Sqlite('/db/btest.db')
 //sqlite.excSql("create table t_user(fid varchar(255))")
 async function test(){
     var sol = new Solution()
     var model = await sol.model('model')
+    console.log('model desc', await model.desc())
+    await model.create({name: 'test'})
+    await model.create({name: 'test1'})
+    await model.create({name: 'test2'})
     var rst = await model.query()
     console.log('rst', rst)
-
+    await model.delete({'=': ['{name}','test']})
+    await model.delete({'=': ['{name}','test1']})
+    await model.delete({'=': ['{name}','test2']})
+    rst = await model.query()
+    console.log('rst', rst)
+/*
     await sqlite.addField('t_user', [{name: "fid", type: "string"},{name: "fname",type:"string"}])
     //await sqlite.begTran()
     await sqlite.excSql("insert into t_user(fid) select count(fid)+1 from t_user")
@@ -39,6 +48,7 @@ async function test(){
     var update = await sqlite.delete('t_user', filter)
     var rec = await sqlite.query('t_user')
     console.log('rec deleted', rec)
+*/
 }
 
 test().then(()=>{

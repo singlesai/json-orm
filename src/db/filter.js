@@ -4,7 +4,7 @@ const { Console } = require("console");
 class Filter{
     constructor(val){
         var idx
-        console.log('Filter', val)
+        // console.log('Filter', val)
         if(isArray(val)){
             this._op = "&"
             this._child = []
