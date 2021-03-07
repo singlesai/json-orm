@@ -4,12 +4,12 @@
         "databases": {
             "default": {
                 "type": "sqlite",
-                "cfg": "btest.db"
+                "cfg": "./db/btest.db"
             }
         },
         "maindb": {
             "type": "sqlite",
-            "cfg": "btest.db"
+            "cfg": "./db/btest.db"
         },
         "applications": {
             "base": {
