@@ -1,4 +1,4 @@
-const Solution = require('./src/index')
+const Solution = require('./src/entity/solution')
 
 // var sol =new Solution()
 // var model = sol.model('model')

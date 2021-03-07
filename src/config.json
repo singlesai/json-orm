@@ -6,5 +6,6 @@
         },
         "debug": true,
         "warning": true
-    }
+    },
+    "port": 3721
 }
