@@ -10,6 +10,7 @@ const io = require('socket.io')(server)
 const Solution = require('./entity/solution')
 
 var base = new Solution()
+var srvSolution = new Solution(base, 'srv')
 
 
 server.listen(cfg.port, ()=>{
