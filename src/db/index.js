@@ -58,8 +58,8 @@ class Database{
         return await this._db.dropField(table, fields)
     }
 
-    async query(table, fields, filter, order, limit, offset) {
-        return await this._db.query(table,fields, filter, order, limit, offset)
+    async query(table, filter, fields, order, limit, offset) {
+        return await this._db.query(table, filter,fields, order, limit, offset)
     }
 
     async create(table, val) {

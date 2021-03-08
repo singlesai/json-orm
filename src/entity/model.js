@@ -85,10 +85,10 @@ class Model{
         return filter
     }
 
-    async query(fields, limit, offset, filter, order) {
+    async query( filter, fields, limit, offset, order) {
         await this.initDb()
         var dbFilter = new Filter(this.toDbFilter(filter))
-        var dataRecs = await this._db.query(this._table,fields, dbFilter, order, limit, offset)
+        var dataRecs = await this._db.query(this._table, dbFilter,fields, order, limit, offset)
         var rst = []
         for(var idx in dataRecs){
             var r = {}

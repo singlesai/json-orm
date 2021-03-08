@@ -262,7 +262,7 @@ class Sqlite{
         return strWhere
     }
 
-    async query(table, fields, filter, order, limit, offset) {
+    async query(table, filter, fields, order, limit, offset) {
         var tableInfo = await this.tableInfo(table)
         var nFields = []
         var field
